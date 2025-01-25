@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions for Akshi</title>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "huBBjAaSjLTj7uWfl",
+      });
+   })();
+</script>
+    
+   
+</head>
+<style>
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: beige;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#app {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* .page {
+    display: ;
+} */
+
+.page.active {
+    display: block;
+}
+
+.message {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.options .btn, .btn,.btn1,.btn2 {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 1rem;
+}
+
+</style>
+<body>
+    <div id="app">
+        
+        <!-- Start Page -->
+        <div class="page" id="start-page">
+            <p class="message">Hlooo Akshi ❤️, I have just a few questions for our next date. So before I start with the questions, would you like to go on a date with me?</p>
+            <button class="btn" onclick="goToPage('question-1')">Yes</button>
+            <button class="btn" onclick="goToPage('no-page')">No</button>
+        </div>
+
+        <!-- No Page -->
+        <div class="page" id="no-page" style="display:none;">
+            <p class="message">Please cutiepie, don't say no. You won't regret the date.</p>
+            <button class="btn" onclick="goToPage('question-1')">Yes</button>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="page" id="question-1" style="display:none;">
+            <p class="message">What date would you prefer?</p>
+            <input type="date" id="date-input" name="date" min="2025-02-01" max="2025-02-28" required>
+            <button class="btn" onclick="recordAnswer('date', 'date-input'); goToPage('message-1')">Next</button>
+        </div>
+
+        <!-- Message 1 -->
+        <div class="page" id="message-1" style="display:none;">
+            <p class="message">You have a cutest voice.</p>
+            <button class="btn" onclick="goToPage('question-2')">Next</button>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="page" id="question-2" style="display:none;">
+            <p class="message">What would you like me to wear on the date?(Suit Up)</p>
+            <textarea id="wear-input" name="outfit" placeholder="Write your answer here..." required></textarea>
+            <button class="btn" onclick="recordAnswer('wear', 'wear-input'); goToPage('message-2')">Next</button>
+        </div>
+
+        <!-- Message 2 -->
+        <div class="page" id="message-2" style="display:none;">
+            <p class="message">You’ve given me a reason to live, and you make me feel confident.</p>
+            <button class="btn" onclick="goToPage('question-3')">Thanks</button>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="page" id="question-3" style="display:none;">
+            <p class="message">What would you like to have?</p>
+            <div class="options" >
+                <button class="btn1" onclick=" goToPage('message-3')" id="Ita" value="Italian" name="Italian">Italian</button>
+                <button class="btn1" onclick=" goToPage('message-3')" id="Chin"  value="Chinese" name="Chinese">Chinese</button>
+                <button class="btn1" onclick=" goToPage('message-3')" id="Ind" value="Indian" name="Indian">Indian</button>
+                <button class="btn1" onclick=" goToPage('message-3')" id="Kor" value="Korean" name="Korean">Korean</button>
+            </div>
+        </div>
+
+        <!-- Message 3 -->
+        <div class="page" id="message-3" style="display:none;">
+            <p class="message">You’re the cutest and sweetest person I have ever met.</p>
+            <button class="btn" onclick="goToPage('question-4')">Whatever</button>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="page" id="question-4" style="display:none;">
+            <p class="message">What would you like to do after the date?</p>
+            <div class="options" >
+                <button class="btn" onclick=" goToPage('question-5')" id="Arcade" value="Arcade" name="Arcade">Arcade</button>
+                <button class="btn" onclick=" goToPage('question-5')" id="Watch" value="Watch Movie" name="Watch Movie">Watch movie</button>
+                <button class="btn" onclick=" goToPage('question-5')" id="Shop" value="Shopping" name="Shopping">Shopping</button>
+                <button class="btn" onclick=" goToPage('question-5')"id="See" value="See Art" name="See Art">See art</button>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="page" id="question-5" style="display:none;">
+            <p class="message">How would you like to end the date?</p>
+            <div class="options" id="kya_kara">
+                <button class="btn2" onclick=" goToPage('final-page')" id="Hug" value="Hug" name="Hug">Hug</button>
+                <button class="btn2" onclick=" goToPage('final-page')" id="Kiss" value="Kiss">Kiss</button>
+                <textarea  placeholder="Any other way you want to end it..."id="ending-input" onfocus="this.placeholder=''"></textarea>
+                <button class="btn2" onclick="sendMail(); goToPage('final-page')">Submit</button>
+            </div>
+        </div>
+
+        <!-- Final Page -->
+        <div class="page" id="final-page" style="display:none;">
+            <p class="message">Thank you for the response, cutiepie ❤️.</p>
+            <button class="btn2" onclick="sendMail(); goToPage('final-page')">Submit</button>
+
+        </div>
+    </div>
+    <script >
+        let food1 = ""; // Variable to store the selected food value
+
+// Add event listeners to all buttons with the 'btn' class
+document.querySelectorAll('.btn1').forEach(button => {
+  button.addEventListener('click', () => {
+    food1 = button.value; // Get the value of the clicked button
+     // Logs the selected value, e.g., "Italian"
+  });
+});
+let after = ""; // Variable to store the selected food value
+
+// Add event listeners to all buttons with the 'btn' class
+document.querySelectorAll('.btn').forEach(button => {
+  button.addEventListener('click', () => {
+    after1 = button.value; // Get the value of the clicked button
+     // Logs the selected value, e.g., "watch movie"
+  });
+});
+
+let end = ""; // Variable to store the selected food value
+
+// Add event listeners to all buttons with the 'btn' class
+document.querySelectorAll('.btn2').forEach(button => {
+  button.addEventListener('click', () => {
+    end = button.value; // Get the value of the clicked button
+     // Logs the selected value, e.g., "hug"
+  });
+});
+
+
+
+
+
+
+
+
+
+        function sendMail(){
+            let data={
+                date : document.getElementById("date-input").value,
+                outfit : document.getElementById("wear-input").value,
+                food :food1 ,
+                after_date : after1,
+                kya_kara : end,
+                kya_kara2 : document.getElementById("ending-input").value,
+
+
+
+
+            }
+            emailjs.send("service_cv8p03j","template_3x2b0eo",data).then(alert("Love You Akshi!!!"))
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let responses = {};
+
+function goToPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+    document.getElementById(pageId).style.display = 'block';
+}
+
+function recordAnswer(question, inputId) {
+    const input = document.getElementById(inputId);
+    responses[question] = input ? input.value || inputId : inputId;
+    console.log(responses);  // For debugging purposes
+}
+// this is for email
+const data = {
+    user_name: "Akshi",
+    preferred_date: "2025-02-14",
+    preferred_food: "Italian",
+    activity: "Shopping"
+};
+
+// emailjs.send("Yservice_cv8p03j", "service_cv8p03j", data)
+// (function(response) {
+//     console.log("Email sent successfully!", response.status, response.text);
+// }, function(error) {
+//     console.error("Failed to send email:", error);
+// });
+
+
+
+function sendEmail() {
+    const emailData = {
+        user_name: "Akshi",
+        preferred_date: responses.date || "No date selected",
+        preferred_food: responses.food || "No food preference",
+        activity: responses.activity || "No activity selected",
+        ending: responses.ending || "No ending preference"
+    };
+
+    emailjs.send("Yservice_cv8p03j", "service_cv8p03j", emailData)
+        .then(function(response) {
+            console.log("Email sent successfully!", response.status, response.text);
+        })
+        .catch(function(error) {
+            console.error("Failed to send email:", error);
+        });
+}
+function goToPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+    document.getElementById(pageId).style.display = 'block';
+
+    if (pageId === 'final-page') {
+        sendEmail();
+    }
+}
+
+    </script>
+</body>
+</html>
